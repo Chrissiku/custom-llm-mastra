@@ -1,5 +1,6 @@
 import { Agent } from '@mastra/core/agent';
 import { Memory } from '@mastra/memory';
+import { privateChatModel } from '../../custom/gateway';
 import { weatherTool } from '../tools/weather-tool';
 import { scorers } from '../scorers/weather-scorer';
 
@@ -23,8 +24,7 @@ export const weatherAgent = new Agent({
 
       Use the get-weather tool to fetch current weather data when the user asks for weather.
 `,
-  // Gateway prefix must match MyPrivateGateway.id (`private`), not the Mastra registration key.
-  model: 'private/my-provider/gemma3:1b',
+  model: privateChatModel(),
   tools: { weatherTool },
   scorers: {
     toolCallAppropriateness: {

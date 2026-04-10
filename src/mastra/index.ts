@@ -7,11 +7,12 @@ import { Observability, DefaultExporter, CloudExporter, SensitiveDataFilter } fr
 import { weatherWorkflow } from './workflows/weather-workflow';
 import { weatherAgent } from './agents/weather-agent';
 import { toolCallAppropriatenessScorer, completenessScorer, translationScorer } from './scorers/weather-scorer';
-import { MyPrivateGateway } from '../custom/gateway';
+import { MyPrivateGateway, PRIVATE_GATEWAY_ID } from '../custom/gateway';
 
 export const mastra = new Mastra({
+  // `gateways` key is only an internal label. Agents should use `privateChatModel()` from `gateway.ts` (prefix `${PRIVATE_GATEWAY_ID}/…`).
   gateways: {
-    privateGateway: new MyPrivateGateway(),
+    [`${PRIVATE_GATEWAY_ID}Gateway`]: new MyPrivateGateway(),
   },
   workflows: { weatherWorkflow },
   agents: { weatherAgent },
@@ -45,3 +46,6 @@ export const mastra = new Mastra({
     },
   }),
 });
+
+mastra.addGateway(new MyPrivateGateway(), PRIVATE_GATEWAY_ID);
+const gateway = mastra.getGatewayById(PRIVATE_GATEWAY_ID);

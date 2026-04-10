@@ -6,6 +6,21 @@ import {
 import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
 
 /**
+ * Single place for gateway routing: Mastra resolves `model` as
+ * `{PRIVATE_GATEWAY_ID}/{PRIVATE_PROVIDER_ID}/{modelName}` (see `privateChatModel()`).
+ */
+export const PRIVATE_GATEWAY_ID = 'private' as const;
+export const PRIVATE_PROVIDER_ID = 'my-provider' as const;
+/** Must stay in sync with what your OpenAI-compatible server accepts as `model`. */
+export const PRIVATE_DEFAULT_MODEL = 'gemma3:1b' as const;
+
+export function privateChatModel(
+  modelId: string = PRIVATE_DEFAULT_MODEL,
+): `${typeof PRIVATE_GATEWAY_ID}/${typeof PRIVATE_PROVIDER_ID}/${string}` {
+  return `${PRIVATE_GATEWAY_ID}/${PRIVATE_PROVIDER_ID}/${modelId}`;
+}
+
+/**
  * AI SDK posts to `{baseURL}/chat/completions`.
  * Your server exposes `POST http://localhost:3000/api/chat/completions`,
  * so baseURL must be `http://localhost:3000/api` (not `.../api/v1`).
@@ -20,8 +35,7 @@ function normalizeOpenAiCompatibleBaseUrl(raw: string): string {
 
 /** OpenAI-compatible endpoint (e.g. local proxy, private deployment). */
 export class MyPrivateGateway extends MastraModelGateway {
-  /** Prefix for model IDs: `private/my-provider/<model>`. */
-  readonly id = 'private';
+  readonly id = PRIVATE_GATEWAY_ID;
 
   readonly name = 'My Private Gateway';
 
@@ -35,9 +49,9 @@ export class MyPrivateGateway extends MastraModelGateway {
     const baseUrl = normalizeOpenAiCompatibleBaseUrl(raw);
 
     return {
-      'my-provider': {
+      [PRIVATE_PROVIDER_ID]: {
         name: 'My Provider',
-        models: ['gemma3:1b'],
+        models: [PRIVATE_DEFAULT_MODEL],
         apiKeyEnvVar: 'CUSTOM_API_KEY',
         gateway: this.id,
         url: baseUrl,

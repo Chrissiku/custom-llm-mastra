@@ -4,7 +4,6 @@ import {
   type ProviderConfig,
 } from '@mastra/core/llm';
 import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
-import { createOpenAiCompatibleStudioFetch } from './openai-compatible-fetch';
 
 /**
  * AI SDK posts to `{baseURL}/chat/completions`.
@@ -89,8 +88,6 @@ export class MyPrivateGateway extends MastraModelGateway {
       name: 'private-llm',
       apiKey,
       baseURL,
-      fetch: createOpenAiCompatibleStudioFetch(),
-      // doGenerate() omits `stream`; some proxies default to SSE, which breaks JSON parsing in the AI SDK.
       transformRequestBody: (body) =>
         body.stream === true ? body : { ...body, stream: false },
       // Local servers often reject json_schema; Studio still works with tools via normal tool_calls.

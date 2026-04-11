@@ -112,7 +112,9 @@ export const translationScorer = createScorer({
     'Checks that non-English location names are translated and used correctly',
   type: 'agent',
   judge: {
-    model: 'private/my-provider/gemma3:1b',
+    // model: 'private/my-provider/gemma3:1b', 
+    // model: 'private/my-provider/qwen3.5:0.8b', 
+    model: 'private/my-provider/kimi-k2.5:cloud',
     instructions:
       'You are an expert evaluator of translation quality for geographic locations. ' +
       'Determine whether the user text mentions a non-English location and whether the assistant correctly uses an English translation of that location. ' +

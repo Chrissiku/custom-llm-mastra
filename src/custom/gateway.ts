@@ -12,7 +12,8 @@ import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
 export const PRIVATE_GATEWAY_ID = 'private' as const;
 export const PRIVATE_PROVIDER_ID = 'my-provider' as const;
 /** Must stay in sync with what your OpenAI-compatible server accepts as `model`. */
-export const PRIVATE_DEFAULT_MODEL = 'gemma3:1b' as const;
+// export const PRIVATE_DEFAULT_MODEL = 'qwen3.5:0.8b' as const;
+export const PRIVATE_DEFAULT_MODEL = 'kimi-k2.5:cloud' as const;
 
 export function privateChatModel(
   modelId: string = PRIVATE_DEFAULT_MODEL,

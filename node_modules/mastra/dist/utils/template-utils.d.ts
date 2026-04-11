@@ -1,0 +1,15 @@
+export interface Template {
+    githubUrl: string;
+    title: string;
+    slug: string;
+    agents: string[];
+    mcp: string[];
+    tools: string[];
+    networks: string[];
+    workflows: string[];
+}
+export declare function loadTemplates(): Promise<Template[]>;
+export declare function selectTemplate(templates: Template[]): Promise<Template | null>;
+export declare function findTemplateByName(templates: Template[], templateName: string): Template | null;
+export declare function getDefaultProjectName(template: Template): string;
+//# sourceMappingURL=template-utils.d.ts.map

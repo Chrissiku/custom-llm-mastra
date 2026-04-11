@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../src/validator/loader.ts"],"names":[],"mappings":";;;AAKA,QAAA,CAAS,sBAAA,EAAwB,YAAY,GAAG,CAAA","file":"loader.js","sourcesContent":["import { register } from 'node:module';\n\n/**\n * Main loader hook that modifies module resolution\n */\nregister('./custom-resolver.js', import.meta.url);\n"]}

@@ -1,0 +1,18 @@
+/**
+ * Loads and validates a request context presets JSON file.
+ *
+ * @param presetsPath - Path to the presets JSON file (relative or absolute)
+ * @returns The original JSON string content
+ * @throws Error if file doesn't exist, JSON is invalid, or structure is incorrect
+ */
+export declare function loadAndValidatePresets(presetsPath: string): Promise<string>;
+/**
+ * Escapes a JSON string for safe embedding in HTML/JavaScript.
+ * Handles backslashes, single quotes, newlines, carriage returns,
+ * script-breaking sequences, and Unicode line terminators.
+ *
+ * @param json - JSON string to escape
+ * @returns Escaped string safe for HTML embedding
+ */
+export declare function escapeJsonForHtml(json: string): string;
+//# sourceMappingURL=validate-presets.d.ts.map

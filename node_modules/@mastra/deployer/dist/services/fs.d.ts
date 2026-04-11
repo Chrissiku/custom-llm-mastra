@@ -1,0 +1,28 @@
+export declare class FileService {
+    /**
+     *
+     * @param inputFile the file in the starter files directory to copy
+     * @param outputFilePath the destination path
+     * @param replaceIfExists flag to replace if it exists
+     * @returns
+     */
+    copyStarterFile(inputFile: string, outputFilePath: string, replaceIfExists?: boolean): Promise<boolean>;
+    setupEnvFile({ dbUrl }: {
+        dbUrl: string;
+    }): Promise<void>;
+    getFirstExistingFile(files: string[]): string;
+    /**
+     * Returns the first existing file from the provided array, or undefined if none exist
+     * @param files array of file paths to check
+     * @returns the first existing file path or undefined
+     */
+    getFirstExistingFileOrUndefined(files: string[]): string | undefined;
+    replaceValuesInFile({ filePath, replacements, }: {
+        filePath: string;
+        replacements: {
+            search: string;
+            replace: string;
+        }[];
+    }): void;
+}
+//# sourceMappingURL=fs.d.ts.map

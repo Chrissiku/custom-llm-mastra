@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "mastra dev",
+    "build": "mastra build"
   },
   "repository": {
     "type": "git",
@@ -13,9 +14,19 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/Chrissiku/custom-llm-mastra/issues"
   },
-  "homepage": "https://github.com/Chrissiku/custom-llm-mastra#readme"
+  "homepage": "https://github.com/Chrissiku/custom-llm-mastra#readme",
+  "dependencies": {
+    "@ai-sdk/openai-compatible": "^2.0.41",
+    "@mastra/core": "^1.24.1",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "mastra": "^1.5.0",
+    "typescript": "^6.0.2"
+  }
 }

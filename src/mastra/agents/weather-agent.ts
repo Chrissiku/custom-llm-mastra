@@ -1,6 +1,6 @@
 import { Agent } from '@mastra/core/agent'
 import { weatherTool } from '../tools/weather-tool'
-import { PRIVATE_GATEWAY_ID } from '../../utils/cutom-gateway'
+import { PRIVATE_DEFAULT_MODEL, PRIVATE_GATEWAY_ID, PRIVATE_PROVIDER_ID } from '../../utils/custom-gateway'
 
 export const weatherAgent = new Agent({
     id: 'weather-agent',
@@ -17,6 +17,6 @@ export const weatherAgent = new Agent({
 
       Use the weatherTool to fetch current weather data.
 `,
-    model: `${PRIVATE_GATEWAY_ID}/my-provider/kimi-k2.5:cloud`,
+    model: `${PRIVATE_GATEWAY_ID}/${PRIVATE_PROVIDER_ID}/${PRIVATE_DEFAULT_MODEL}`,
     tools: { weatherTool },
 })

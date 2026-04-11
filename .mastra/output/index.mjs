@@ -1,7 +1,7 @@
 import { scoreTraces, scoreTracesWorkflow } from '@mastra/core/evals/scoreTraces';
 import { Mastra } from '@mastra/core';
 import { Agent, MessageList, isSupportedLanguageModel, tryGenerateWithJsonFallback, tryStreamWithJsonFallback } from '@mastra/core/agent';
-import { weatherTool } from './tools/aa85937d-66fc-42ec-abd1-d149bbdba171.mjs';
+import { weatherTool } from './tools/ee0d78bb-8639-4cbb-afd4-d55d1f900148.mjs';
 import { MastraModelGateway, resolveModelConfig, EMBEDDING_MODELS, PROVIDER_REGISTRY, parseModelString, ModelRouterLanguageModel } from '@mastra/core/llm';
 import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
 import { mkdtemp, rm, readFile, writeFile, mkdir, copyFile, readdir, stat } from 'fs/promises';
@@ -43,7 +43,7 @@ import { Buffer as Buffer$1 } from 'buffer';
 import { tools } from './tools.mjs';
 import { AsyncLocalStorage } from 'async_hooks';
 
-const PRIVATE_GATEWAY_ID$1 = "private";
+const PRIVATE_GATEWAY_ID = "private";
 const PRIVATE_PROVIDER_ID = "my-provider";
 const PRIVATE_DEFAULT_MODEL = "kimi-k2.5:cloud";
 function normalizeOpenAiCompatibleBaseUrl(raw) {
@@ -54,7 +54,7 @@ function normalizeOpenAiCompatibleBaseUrl(raw) {
   return url;
 }
 class MyPrivateGateway extends MastraModelGateway {
-  id = PRIVATE_GATEWAY_ID$1;
+  id = PRIVATE_GATEWAY_ID;
   name = "My Private Gateway";
   async fetchProviders() {
     const raw = process.env.CUSTOM_URL;
@@ -125,19 +125,19 @@ const weatherAgent = new Agent({
 
       Use the weatherTool to fetch current weather data.
 `,
-  model: `${PRIVATE_GATEWAY_ID$1}/my-provider/kimi-k2.5:cloud`,
+  model: `${PRIVATE_GATEWAY_ID}/${PRIVATE_PROVIDER_ID}/${PRIVATE_DEFAULT_MODEL}`,
   tools: { weatherTool }
 });
 
 const mastra = new Mastra({
   gateways: {
-    [`${PRIVATE_GATEWAY_ID$1}Gateway`]: new MyPrivateGateway()
+    [`${PRIVATE_GATEWAY_ID}Gateway`]: new MyPrivateGateway()
   },
   agents: {
     weatherAgent
   }
 });
-mastra.addGateway(new MyPrivateGateway(), PRIVATE_GATEWAY_ID$1);
+mastra.addGateway(new MyPrivateGateway(), PRIVATE_GATEWAY_ID);
 
 function normalizeStudioBase(studioBase) {
   studioBase = studioBase.trim();
